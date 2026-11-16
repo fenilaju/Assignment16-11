@@ -1,0 +1,16 @@
+{
+  "name": "member-portal-login",
+  "version": "1.0.0",
+  "description": "Responsive login and registration app with MongoDB Atlas",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=20" },
+  "keywords": ["login", "registration", "mongodb", "nodejs"],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mongodb": "^6.21.0"
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your account — Member Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dash-page">
+  <canvas id="particles"></canvas>
+
+  <nav class="nav">
+    <div class="nav-logo">Member Portal</div>
+    <div class="nav-links">
+      <span class="nav-user" id="navUser"></span>
+      <button class="btn btn-sm btn-ghost-red" id="logoutBtn">Sign Out</button>
+    </div>
+  </nav>
+
+  <main class="dash-main">
+
+    <div class="dash-greeting">
+      <p class="greeting-label">Welcome back,</p>
+      <h1 class="greeting-name" id="userName">—</h1>
+    </div>
+
+    <div class="dash-cards">
+
+      <div class="dash-card">
+        <div class="dash-card-icon">◈</div>
+        <h3 class="dash-card-title">Active Session</h3>
+        <p class="dash-card-body">Your sign in is protected by a server verified session cookie.</p>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-icon">⬡</div>
+        <h3 class="dash-card-title">MongoDB Account</h3>
+        <p class="dash-card-body">Your account is saved in the database, so it remains available after server restarts.</p>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-icon">✦</div>
+        <h3 class="dash-card-title">Password Protection</h3>
+        <p class="dash-card-body">Passwords are hashed before they are stored and are never sent back to the browser.</p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="particles.js"></script>
+  <script>
+    const userName = document.getElementById('userName');
+    const navUser = document.getElementById('navUser');
+    fetch('/api/me').then((response) => {
+      if (!response.ok) throw new Error('Sign in required');
+      return response.json();
+    }).then(({ user }) => {
+      userName.textContent = user.name;
+      navUser.textContent = user.name;
+    }).catch(() => { location.replace('login.html'); });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('/api/logout', { method: 'POST' });
+      location.replace('index.html');
+    });
+  </script>
+</body>
+</html>
